@@ -17,8 +17,16 @@ export default class App extends Component {
     const { contacts } = this.state;
     contacts.some(contact => contact.name === name)
       ? alert(`${name} is alredy added to the contacts`)
-      : contacts.push({ id: nanoid(), name: name, number: number });
-    this.setState({ contacts: contacts });
+      : this.setState(prevState => ({
+        contacts: [
+          ...prevState.contacts,
+          {
+            id: nanoid(),
+            name: name,
+            number: number
+          },
+        ],
+      }));
   };
 
   handleChange = evt => {
