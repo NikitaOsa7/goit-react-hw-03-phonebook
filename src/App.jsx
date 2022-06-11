@@ -39,6 +39,16 @@ export default class App extends Component {
     }));
   };
 
+  componentDidUpdate(prevState) {
+    this.state.contacts !== prevState.contacts &&
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts))
+  };
+
+  componentDidMount() {
+    const contacts = JSON.parse(localStorage.getItem('contacts'));
+    contacts && this.setState({contacts : contacts})
+  }
+
   render() {
     const { contacts, filter } = this.state;
     const { handleChange, handleDelete, forSubmitHandler } = this;
